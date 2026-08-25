@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: msisdn-portability-simulator
+  datasource:
+    url: jdbc:h2:mem:mnpdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  mvc:
+    problem-details:
+      enabled: true
+
+mnp-simulator:
+  scenario:
+    reject-rate: 0.1
+    timeout-rate: 0.05
+    min-latency-ms: 50
+    max-latency-ms: 300
+    timeout-delay-ms: 3000
+    operator-overrides:
+      "OOR":
+        reject-rate: 0.0
+        timeout-rate: 0.0
+  integration:
+    enabled: false
+    notification-topic: number-portability-events
+    donor-response-base-url: http://localhost:8080

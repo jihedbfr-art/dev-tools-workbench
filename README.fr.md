@@ -11,13 +11,13 @@ au filtre.
 
 ## Statut
 
-Ce dépôt démarre vide, volontairement. La liste des outils prévus en premier — un simulateur de
-portabilité de numéro (MNP), un linter de SPI Keycloak, un auditeur d'outbox Kafka, un testeur de
-portabilité de dialecte H2/PostgreSQL, un linter de compensation de saga BPMN, et un générateur de
-squelette de consommateur idempotent Kafka — se trouve dans
-[`docs/selection-criteria.md`](docs/selection-criteria.md). Rien n'est publié tant que ça ne
-fonctionne pas et n'a pas été réellement utilisé, pas juste commité pour prouver que la liste
-existe.
+- [`msisdn-portability-simulator`](tools/msisdn-portability-simulator) — livré. Simule le côté
+  donneur d'un échange de portabilité de numéro (MNP) derrière une passerelle REST façon ACQ.
+- Un linter de SPI Keycloak, un auditeur d'outbox Kafka, un testeur de portabilité de dialecte
+  H2/PostgreSQL, un linter de compensation de saga BPMN, et un générateur de squelette de
+  consommateur idempotent Kafka sont les suivants — voir
+  [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste complète et pourquoi
+  chacun a été retenu.
 
 ## Structure
 

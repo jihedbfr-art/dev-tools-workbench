@@ -1,5 +1,7 @@
 # dev-tools-workbench
 
+[![CI - msisdn-portability-simulator](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml)
+
 [Version française](./README.fr.md)
 
 Small, focused developer tools for gaps that mature tooling doesn't cover — not another
@@ -10,11 +12,12 @@ here exists because it was screened against the current landscape first; see
 
 ## Status
 
-This repo is starting empty on purpose. The shortlist of tools planned first — an MNP
-portability simulator, a Keycloak SPI linter, a Kafka outbox auditor, an H2/PostgreSQL dialect
-portability tester, a BPMN saga compensation linter, and a Kafka idempotent-consumer scaffolder —
-is in [`docs/selection-criteria.md`](docs/selection-criteria.md). Nothing is published until it
-works and has been used for real, not just committed to prove the list exists.
+- [`msisdn-portability-simulator`](tools/msisdn-portability-simulator) — shipped. Simulates the
+  donor side of a mobile number portability (MNP) exchange behind an ACQ-style REST gateway.
+- A Keycloak SPI linter, a Kafka outbox auditor, an H2/PostgreSQL dialect portability tester, a
+  BPMN saga compensation linter, and a Kafka idempotent-consumer scaffolder are next — see
+  [`docs/selection-criteria.md`](docs/selection-criteria.md) for the full shortlist and why each
+  one made the cut.
 
 ## Structure
 
