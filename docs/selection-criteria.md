@@ -21,9 +21,9 @@ better.
    Simulates the donor/recipient exchange of a mobile number portability (MNP) request between
    operators. Every MNP implementation is closed-source vendor software; nothing open exists to
    test against.
-2. **`keycloak-spi-linter`** — checks that a Keycloak SPI provider's `META-INF/services`
-   registration and factory contracts are correct before it gets deployed to a real server,
-   instead of finding out at boot time.
+2. **[`keycloak-spi-linter`](../tools/keycloak-spi-linter)** — shipped. Checks that a Keycloak
+   SPI provider's `META-INF/services` registration and factory contracts are correct before it
+   gets deployed to a real server, instead of finding out at boot time.
 3. **`kafka-outbox-verifier`** — audits an existing transactional outbox + relay setup for stuck
    rows, duplicates, or drift. Not another outbox library (several already exist) — a diagnostic
    for one already running in production.

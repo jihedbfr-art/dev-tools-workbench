@@ -1,5 +1,8 @@
 # dev-tools-workbench
 
+[![CI - msisdn-portability-simulator](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml)
+[![CI - keycloak-spi-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml)
+
 [English version](./README.md)
 
 Des outils de développement petits et ciblés, pour des trous que l'outillage mature ne couvre
@@ -13,11 +16,12 @@ au filtre.
 
 - [`msisdn-portability-simulator`](tools/msisdn-portability-simulator) — livré. Simule le côté
   donneur d'un échange de portabilité de numéro (MNP) derrière une passerelle REST façon ACQ.
-- Un linter de SPI Keycloak, un auditeur d'outbox Kafka, un testeur de portabilité de dialecte
-  H2/PostgreSQL, un linter de compensation de saga BPMN, et un générateur de squelette de
-  consommateur idempotent Kafka sont les suivants — voir
-  [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste complète et pourquoi
-  chacun a été retenu.
+- [`keycloak-spi-linter`](tools/keycloak-spi-linter) — livré. Détecte les enregistrements
+  `META-INF/services` cassés d'un provider SPI Keycloak avant qu'ils n'échouent au déploiement.
+- Un auditeur d'outbox Kafka, un testeur de portabilité de dialecte H2/PostgreSQL, un linter de
+  compensation de saga BPMN, et un générateur de squelette de consommateur idempotent Kafka sont
+  les suivants — voir [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste
+  complète et pourquoi chacun a été retenu.
 
 ## Structure
 
