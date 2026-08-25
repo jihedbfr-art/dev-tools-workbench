@@ -11,18 +11,16 @@ two questions:
 
 Candidates were screened against the current tooling landscape (GitHub, Maven Central, npm, PyPI)
 before being accepted. A short note on what was ruled out and why lives in
-[`docs/rejected-candidates.md`](rejected-candidates.md) once that file exists — most ideas that
-looked good on paper turned out to be `Spring Boot Admin`, `hadolint`, or `pgbadger` already
-solving the problem better.
+[`docs/rejected-candidates.md`](rejected-candidates.md) — most ideas that looked good on paper
+turned out to be `Spring Boot Admin`, `hadolint`, or `pgbadger` already solving the problem
+better.
 
 ## What's accepted so far
 
-Nothing has shipped yet — this repo starts empty on purpose rather than with placeholder
-scaffolding. The current shortlist, in the order they're planned:
-
-1. **`msisdn-portability-simulator`** — simulates the donor/recipient exchange of a mobile number
-   portability (MNP) request between operators. Every MNP implementation is closed-source
-   vendor software; nothing open exists to test against.
+1. **[`msisdn-portability-simulator`](../tools/msisdn-portability-simulator)** — shipped.
+   Simulates the donor/recipient exchange of a mobile number portability (MNP) request between
+   operators. Every MNP implementation is closed-source vendor software; nothing open exists to
+   test against.
 2. **`keycloak-spi-linter`** — checks that a Keycloak SPI provider's `META-INF/services`
    registration and factory contracts are correct before it gets deployed to a real server,
    instead of finding out at boot time.
