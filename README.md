@@ -3,6 +3,7 @@
 [![CI - msisdn-portability-simulator](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml)
 [![CI - keycloak-spi-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml)
 [![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
+[![CI - bpmn-saga-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml)
 
 [Version française](./README.fr.md)
 
@@ -20,10 +21,11 @@ here exists because it was screened against the current landscape first; see
   `META-INF/services` registrations for Keycloak SPI providers before they fail at deploy time.
 - [`kafka-outbox-verifier`](tools/kafka-outbox-verifier) — shipped. Audits an existing
   transactional outbox table for stuck rows, unpurged sent rows, and retry loops.
-- An H2/PostgreSQL dialect portability tester, a BPMN saga compensation linter, and a Kafka
-  idempotent-consumer scaffolder are next — see
-  [`docs/selection-criteria.md`](docs/selection-criteria.md) for the full shortlist and why each
-  one made the cut.
+- [`bpmn-saga-linter`](tools/bpmn-saga-linter) — shipped. Fails the build when a boundary timer
+  in a saga can't reach the compensation task the rest of the process relies on.
+- An H2/PostgreSQL dialect portability tester and a Kafka idempotent-consumer scaffolder are
+  next — see [`docs/selection-criteria.md`](docs/selection-criteria.md) for the full shortlist
+  and why each one made the cut.
 
 ## Structure
 
