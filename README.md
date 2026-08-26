@@ -2,6 +2,7 @@
 
 [![CI - msisdn-portability-simulator](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml)
 [![CI - keycloak-spi-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml)
+[![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
 
 [Version française](./README.fr.md)
 
@@ -17,8 +18,10 @@ here exists because it was screened against the current landscape first; see
   donor side of a mobile number portability (MNP) exchange behind an ACQ-style REST gateway.
 - [`keycloak-spi-linter`](tools/keycloak-spi-linter) — shipped. Catches broken
   `META-INF/services` registrations for Keycloak SPI providers before they fail at deploy time.
-- A Kafka outbox auditor, an H2/PostgreSQL dialect portability tester, a BPMN saga compensation
-  linter, and a Kafka idempotent-consumer scaffolder are next — see
+- [`kafka-outbox-verifier`](tools/kafka-outbox-verifier) — shipped. Audits an existing
+  transactional outbox table for stuck rows, unpurged sent rows, and retry loops.
+- An H2/PostgreSQL dialect portability tester, a BPMN saga compensation linter, and a Kafka
+  idempotent-consumer scaffolder are next — see
   [`docs/selection-criteria.md`](docs/selection-criteria.md) for the full shortlist and why each
   one made the cut.
 

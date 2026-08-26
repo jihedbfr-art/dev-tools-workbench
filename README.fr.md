@@ -2,6 +2,7 @@
 
 [![CI - msisdn-portability-simulator](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml)
 [![CI - keycloak-spi-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml)
+[![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
 
 [English version](./README.md)
 
@@ -18,10 +19,13 @@ au filtre.
   donneur d'un échange de portabilité de numéro (MNP) derrière une passerelle REST façon ACQ.
 - [`keycloak-spi-linter`](tools/keycloak-spi-linter) — livré. Détecte les enregistrements
   `META-INF/services` cassés d'un provider SPI Keycloak avant qu'ils n'échouent au déploiement.
-- Un auditeur d'outbox Kafka, un testeur de portabilité de dialecte H2/PostgreSQL, un linter de
-  compensation de saga BPMN, et un générateur de squelette de consommateur idempotent Kafka sont
-  les suivants — voir [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste
-  complète et pourquoi chacun a été retenu.
+- [`kafka-outbox-verifier`](tools/kafka-outbox-verifier) — livré. Audite une table outbox
+  transactionnelle existante à la recherche de lignes bloquées, non purgées, ou en boucle de
+  retry.
+- Un testeur de portabilité de dialecte H2/PostgreSQL, un linter de compensation de saga BPMN, et
+  un générateur de squelette de consommateur idempotent Kafka sont les suivants — voir
+  [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste complète et pourquoi
+  chacun a été retenu.
 
 ## Structure
 
