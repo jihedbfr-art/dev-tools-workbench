@@ -1,0 +1,26 @@
+name: CI - kafka-outbox-verifier
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/kafka-outbox-verifier/**'
+  pull_request:
+    paths:
+      - 'tools/kafka-outbox-verifier/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/kafka-outbox-verifier
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Build and test
+        run: mvn -B clean verify

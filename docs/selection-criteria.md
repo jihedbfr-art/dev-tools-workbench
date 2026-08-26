@@ -24,9 +24,9 @@ better.
 2. **[`keycloak-spi-linter`](../tools/keycloak-spi-linter)** — shipped. Checks that a Keycloak
    SPI provider's `META-INF/services` registration and factory contracts are correct before it
    gets deployed to a real server, instead of finding out at boot time.
-3. **`kafka-outbox-verifier`** — audits an existing transactional outbox + relay setup for stuck
-   rows, duplicates, or drift. Not another outbox library (several already exist) — a diagnostic
-   for one already running in production.
+3. **[`kafka-outbox-verifier`](../tools/kafka-outbox-verifier)** — shipped. Audits an existing
+   transactional outbox table for stuck rows, unpurged sent rows, and retry loops. Not another
+   outbox library (several already exist) — a diagnostic for one already running in production.
 4. **`db-dialect-portability-tester`** — replays a fixed query set against H2 and PostgreSQL to
    catch the dialect differences that pass on an in-memory test profile and break in production.
 5. **`bpmn-saga-linter`** — checks that a BPMN saga diagram has a compensation path for every
