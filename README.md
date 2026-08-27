@@ -4,6 +4,7 @@
 [![CI - keycloak-spi-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml)
 [![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
 [![CI - bpmn-saga-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml)
+[![CI - kafka-idempotent-consumer-scaffolder](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml)
 
 [Version française](./README.fr.md)
 
@@ -23,9 +24,13 @@ here exists because it was screened against the current landscape first; see
   transactional outbox table for stuck rows, unpurged sent rows, and retry loops.
 - [`bpmn-saga-linter`](tools/bpmn-saga-linter) — shipped. Fails the build when a boundary timer
   in a saga can't reach the compensation task the rest of the process relies on.
-- An H2/PostgreSQL dialect portability tester and a Kafka idempotent-consumer scaffolder are
-  next — see [`docs/selection-criteria.md`](docs/selection-criteria.md) for the full shortlist
-  and why each one made the cut.
+- [`kafka-idempotent-consumer-scaffolder`](tools/kafka-idempotent-consumer-scaffolder) —
+  shipped. Generates the `processed_events` migration and repository behind the
+  idempotent-consumer pattern, with the dialect and transaction traps written into the code it
+  emits.
+- An H2/PostgreSQL dialect portability tester is next — see
+  [`docs/selection-criteria.md`](docs/selection-criteria.md) for the full shortlist and why each
+  one made the cut.
 
 ## Structure
 
