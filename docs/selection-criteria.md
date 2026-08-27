@@ -32,8 +32,12 @@ better.
 5. **[`bpmn-saga-linter`](../tools/bpmn-saga-linter)** — shipped. Checks that every boundary
    timer in a BPMN saga can reach a compensation task. `bpmnlint` validates the XML is
    well-formed; it has no opinion on whether a timeout silently skips the rollback.
-6. **`kafka-idempotent-consumer-scaffolder`** — generates the `processed_events` table and
-   repository boilerplate for the idempotent-consumer pattern, instead of hand-rolling it again.
+6. **[`kafka-idempotent-consumer-scaffolder`](../tools/kafka-idempotent-consumer-scaffolder)** —
+   shipped. Generates the `processed_events` table and repository boilerplate for the
+   idempotent-consumer pattern, instead of hand-rolling it again. `spring-kafka` retry topics and
+   the dedup starters solve the neighbouring problem — they retry, they don't remember — and the
+   three ways this gets hand-written wrong (SELECT-before-INSERT, a guard that commits on its own,
+   an INSERT that only parses on one engine) are what the generated comments exist for.
 
 This list will grow or shrink as each tool gets built and actually used — a tool earns its
 README, not the other way around.
