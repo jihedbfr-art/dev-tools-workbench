@@ -4,6 +4,7 @@
 [![CI - keycloak-spi-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml)
 [![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
 [![CI - bpmn-saga-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml)
+[![CI - kafka-idempotent-consumer-scaffolder](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml)
 
 [English version](./README.md)
 
@@ -26,8 +27,10 @@ au filtre.
 - [`bpmn-saga-linter`](tools/bpmn-saga-linter) — livré. Fait échouer le build quand un timer de
   frontière d'une saga ne peut pas atteindre la tâche de compensation sur laquelle repose le
   reste du processus.
-- Un testeur de portabilité de dialecte H2/PostgreSQL et un générateur de squelette de
-  consommateur idempotent Kafka sont les suivants — voir
+- [`kafka-idempotent-consumer-scaffolder`](tools/kafka-idempotent-consumer-scaffolder) — livré.
+  Génère la migration `processed_events` et le repository du pattern consommateur idempotent, avec
+  les pièges de dialecte et de transaction écrits dans le code produit.
+- Un testeur de portabilité de dialecte H2/PostgreSQL est le suivant — voir
   [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste complète et pourquoi
   chacun a été retenu.
 
