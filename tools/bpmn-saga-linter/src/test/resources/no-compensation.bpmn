@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  A plain approval process with a timer but no compensation anywhere — nothing was provisioned,
+  so there's nothing to roll back. Must come back clean: not every BPMN file is a saga.
+-->
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                   id="definitions_plain_process"
+                   targetNamespace="http://jihedapps.com/bpmn/test">
+
+  <bpmn2:process id="plain-approval" name="Plain Approval" isExecutable="true">
+
+    <bpmn2:startEvent id="start" name="Submitted">
+      <bpmn2:outgoing>flow_start_to_review</bpmn2:outgoing>
+    </bpmn2:startEvent>
+
+    <bpmn2:userTask id="review" name="Review Submission" camunda:candidateGroups="reviewers">
+      <bpmn2:incoming>flow_start_to_review</bpmn2:incoming>
+      <bpmn2:outgoing>flow_review_to_end</bpmn2:outgoing>
+    </bpmn2:userTask>
+
+    <bpmn2:boundaryEvent id="reviewTimeout" name="Review Timeout" attachedToRef="review" cancelActivity="true">
+      <bpmn2:outgoing>flow_timeout_to_escalated</bpmn2:outgoing>
+      <bpmn2:timerEventDefinition>
+        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">P2D</bpmn2:timeDuration>
+      </bpmn2:timerEventDefinition>
+    </bpmn2:boundaryEvent>
+
+    <bpmn2:endEvent id="approved" name="Approved">
+      <bpmn2:incoming>flow_review_to_end</bpmn2:incoming>
+    </bpmn2:endEvent>
+
+    <bpmn2:endEvent id="escalated" name="Escalated">
+      <bpmn2:incoming>flow_timeout_to_escalated</bpmn2:incoming>
+    </bpmn2:endEvent>
+
+    <bpmn2:sequenceFlow id="flow_start_to_review" sourceRef="start" targetRef="review" />
+    <bpmn2:sequenceFlow id="flow_review_to_end" sourceRef="review" targetRef="approved" />
+    <bpmn2:sequenceFlow id="flow_timeout_to_escalated" sourceRef="reviewTimeout" targetRef="escalated" />
+
+  </bpmn2:process>
+</bpmn2:definitions>

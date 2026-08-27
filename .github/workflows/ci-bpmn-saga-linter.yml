@@ -1,0 +1,26 @@
+name: CI - bpmn-saga-linter
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/bpmn-saga-linter/**'
+  pull_request:
+    paths:
+      - 'tools/bpmn-saga-linter/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/bpmn-saga-linter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Build and test
+        run: mvn -B clean verify

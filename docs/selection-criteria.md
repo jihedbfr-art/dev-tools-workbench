@@ -29,9 +29,9 @@ better.
    outbox library (several already exist) — a diagnostic for one already running in production.
 4. **`db-dialect-portability-tester`** — replays a fixed query set against H2 and PostgreSQL to
    catch the dialect differences that pass on an in-memory test profile and break in production.
-5. **`bpmn-saga-linter`** — checks that a BPMN saga diagram has a compensation path for every
-   compensable activity. `bpmnlint` validates the XML is well-formed; it has no opinion on
-   whether the saga is actually safe.
+5. **[`bpmn-saga-linter`](../tools/bpmn-saga-linter)** — shipped. Checks that every boundary
+   timer in a BPMN saga can reach a compensation task. `bpmnlint` validates the XML is
+   well-formed; it has no opinion on whether a timeout silently skips the rollback.
 6. **`kafka-idempotent-consumer-scaffolder`** — generates the `processed_events` table and
    repository boilerplate for the idempotent-consumer pattern, instead of hand-rolling it again.
 

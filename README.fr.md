@@ -3,6 +3,7 @@
 [![CI - msisdn-portability-simulator](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-msisdn-portability-simulator.yml)
 [![CI - keycloak-spi-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-keycloak-spi-linter.yml)
 [![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
+[![CI - bpmn-saga-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml)
 
 [English version](./README.md)
 
@@ -22,8 +23,11 @@ au filtre.
 - [`kafka-outbox-verifier`](tools/kafka-outbox-verifier) — livré. Audite une table outbox
   transactionnelle existante à la recherche de lignes bloquées, non purgées, ou en boucle de
   retry.
-- Un testeur de portabilité de dialecte H2/PostgreSQL, un linter de compensation de saga BPMN, et
-  un générateur de squelette de consommateur idempotent Kafka sont les suivants — voir
+- [`bpmn-saga-linter`](tools/bpmn-saga-linter) — livré. Fait échouer le build quand un timer de
+  frontière d'une saga ne peut pas atteindre la tâche de compensation sur laquelle repose le
+  reste du processus.
+- Un testeur de portabilité de dialecte H2/PostgreSQL et un générateur de squelette de
+  consommateur idempotent Kafka sont les suivants — voir
   [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste complète et pourquoi
   chacun a été retenu.
 

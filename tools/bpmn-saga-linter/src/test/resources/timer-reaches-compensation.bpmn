@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The correct shape: the SLA timeout and the explicit-rejection branch converge on the same
+  compensation task, so a silent timeout rolls back exactly like a stated rejection.
+-->
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                   xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                   id="definitions_good_saga"
+                   targetNamespace="http://jihedapps.com/bpmn/test">
+
+  <bpmn2:message id="message_response" name="ResponseMessage" />
+
+  <bpmn2:process id="good-saga" name="Good Saga" isExecutable="true">
+
+    <bpmn2:startEvent id="start" name="Requested">
+      <bpmn2:outgoing>flow_start_to_await</bpmn2:outgoing>
+    </bpmn2:startEvent>
+
+    <bpmn2:subProcess id="awaitResponse" name="Await Response">
+      <bpmn2:incoming>flow_start_to_await</bpmn2:incoming>
+      <bpmn2:outgoing>flow_await_to_gateway</bpmn2:outgoing>
+      <bpmn2:startEvent id="subStart">
+        <bpmn2:outgoing>flow_sub_start_to_catch</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:intermediateCatchEvent id="responseReceived" name="Response Received">
+        <bpmn2:incoming>flow_sub_start_to_catch</bpmn2:incoming>
+        <bpmn2:outgoing>flow_catch_to_sub_end</bpmn2:outgoing>
+        <bpmn2:messageEventDefinition messageRef="message_response" />
+      </bpmn2:intermediateCatchEvent>
+      <bpmn2:endEvent id="subEnd">
+        <bpmn2:incoming>flow_catch_to_sub_end</bpmn2:incoming>
+      </bpmn2:endEvent>
+      <bpmn2:sequenceFlow id="flow_sub_start_to_catch" sourceRef="subStart" targetRef="responseReceived" />
+      <bpmn2:sequenceFlow id="flow_catch_to_sub_end" sourceRef="responseReceived" targetRef="subEnd" />
+    </bpmn2:subProcess>
+
+    <bpmn2:boundaryEvent id="slaTimeout" name="SLA Timeout" attachedToRef="awaitResponse" cancelActivity="true">
+      <bpmn2:outgoing>flow_timeout_to_compensate</bpmn2:outgoing>
+      <bpmn2:timerEventDefinition>
+        <bpmn2:timeDuration xsi:type="bpmn2:tFormalExpression" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">PT30M</bpmn2:timeDuration>
+      </bpmn2:timerEventDefinition>
+    </bpmn2:boundaryEvent>
+
+    <bpmn2:exclusiveGateway id="decisionGateway" name="Decision?">
+      <bpmn2:incoming>flow_await_to_gateway</bpmn2:incoming>
+      <bpmn2:outgoing>flow_gateway_to_done</bpmn2:outgoing>
+      <bpmn2:outgoing>flow_gateway_to_compensate</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+
+    <bpmn2:serviceTask id="compensateWork" name="Compensate Provisioning"
+                       camunda:delegateExpression="${compensateDelegate}">
+      <bpmn2:incoming>flow_gateway_to_compensate</bpmn2:incoming>
+      <bpmn2:incoming>flow_timeout_to_compensate</bpmn2:incoming>
+      <bpmn2:outgoing>flow_compensate_to_rejected</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+
+    <bpmn2:endEvent id="done" name="Done">
+      <bpmn2:incoming>flow_gateway_to_done</bpmn2:incoming>
+    </bpmn2:endEvent>
+
+    <bpmn2:endEvent id="rejected" name="Rejected">
+      <bpmn2:incoming>flow_compensate_to_rejected</bpmn2:incoming>
+    </bpmn2:endEvent>
+
+    <bpmn2:sequenceFlow id="flow_start_to_await" sourceRef="start" targetRef="awaitResponse" />
+    <bpmn2:sequenceFlow id="flow_await_to_gateway" sourceRef="awaitResponse" targetRef="decisionGateway" />
+    <bpmn2:sequenceFlow id="flow_timeout_to_compensate" sourceRef="slaTimeout" targetRef="compensateWork" />
+    <bpmn2:sequenceFlow id="flow_gateway_to_done" sourceRef="decisionGateway" targetRef="done" />
+    <bpmn2:sequenceFlow id="flow_gateway_to_compensate" sourceRef="decisionGateway" targetRef="compensateWork" />
+    <bpmn2:sequenceFlow id="flow_compensate_to_rejected" sourceRef="compensateWork" targetRef="rejected" />
+
+  </bpmn2:process>
+</bpmn2:definitions>
