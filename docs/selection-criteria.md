@@ -27,8 +27,11 @@ better.
 3. **[`kafka-outbox-verifier`](../tools/kafka-outbox-verifier)** — shipped. Audits an existing
    transactional outbox table for stuck rows, unpurged sent rows, and retry loops. Not another
    outbox library (several already exist) — a diagnostic for one already running in production.
-4. **`db-dialect-portability-tester`** — replays a fixed query set against H2 and PostgreSQL to
-   catch the dialect differences that pass on an in-memory test profile and break in production.
+4. **[`db-dialect-portability-tester`](../tools/db-dialect-portability-tester)** — shipped.
+   Replays a query set against H2 and a real PostgreSQL and reports every place they disagree.
+   Migration tools check that a schema applies, ORMs hide the dialect and are the reason you stop
+   noticing it, and `sqlfluff` lints style against one dialect without executing anything. The
+   identifier-casing trap it catches first is the one `kafka-outbox-verifier` shipped with.
 5. **[`bpmn-saga-linter`](../tools/bpmn-saga-linter)** — shipped. Checks that every boundary
    timer in a BPMN saga can reach a compensation task. `bpmnlint` validates the XML is
    well-formed; it has no opinion on whether a timeout silently skips the rollback.
@@ -39,5 +42,7 @@ better.
    three ways this gets hand-written wrong (SELECT-before-INSERT, a guard that commits on its own,
    an INSERT that only parses on one engine) are what the generated comments exist for.
 
-This list will grow or shrink as each tool gets built and actually used — a tool earns its
-README, not the other way around.
+All six are built. The screening was the deliverable, not the number: the great majority of the
+candidates that went in were already covered by mature tooling, and each one is recorded with its
+reason in [`rejected-candidates.md`](rejected-candidates.md). What grows this repository from here
+is a tool that survives the same two questions, not a target count.
