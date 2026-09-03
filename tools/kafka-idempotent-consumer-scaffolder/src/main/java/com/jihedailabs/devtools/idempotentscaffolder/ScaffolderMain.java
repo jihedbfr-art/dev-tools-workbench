@@ -1,5 +1,8 @@
 package com.jihedailabs.devtools.idempotentscaffolder;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -11,6 +14,12 @@ import java.util.Map;
 public class ScaffolderMain {
 
     public static void main(String[] args) {
+        // The report uses status marks, and an engine or a library may answer in the JVM's locale.
+        // On a console whose default charset is not UTF-8 - the Windows default - both arrive as
+        // question marks, which reads as a broken tool rather than a broken input.
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(new FileOutputStream(FileDescriptor.err), true, StandardCharsets.UTF_8));
+
         Map<String, String> flags;
         try {
             flags = parseFlags(args);

@@ -1,5 +1,9 @@
 package com.jihedailabs.devtools.spilinter;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -14,6 +18,12 @@ import java.util.List;
 public class LinterMain {
 
     public static void main(String[] args) {
+        // The report uses status marks, and an engine or a library may answer in the JVM's locale.
+        // On a console whose default charset is not UTF-8 - the Windows default - both arrive as
+        // question marks, which reads as a broken tool rather than a broken input.
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(new FileOutputStream(FileDescriptor.err), true, StandardCharsets.UTF_8));
+
         if (args.length < 1) {
             System.err.println("Usage: java -jar keycloak-spi-linter.jar <path-to-classes-or-jar> [additional-classpath-dirs...]");
             System.exit(1);
