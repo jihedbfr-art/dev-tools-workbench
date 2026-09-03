@@ -5,6 +5,7 @@
 [![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
 [![CI - bpmn-saga-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml)
 [![CI - kafka-idempotent-consumer-scaffolder](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml)
+[![CI - db-dialect-portability-tester](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-db-dialect-portability-tester.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-db-dialect-portability-tester.yml)
 
 [English version](./README.md)
 
@@ -30,9 +31,12 @@ au filtre.
 - [`kafka-idempotent-consumer-scaffolder`](tools/kafka-idempotent-consumer-scaffolder) — livré.
   Génère la migration `processed_events` et le repository du pattern consommateur idempotent, avec
   les pièges de dialecte et de transaction écrits dans le code produit.
-- Un testeur de portabilité de dialecte H2/PostgreSQL est le suivant — voir
-  [`docs/selection-criteria.md`](docs/selection-criteria.md) pour la liste complète et pourquoi
-  chacun a été retenu.
+- [`db-dialect-portability-tester`](tools/db-dialect-portability-tester) — livré. Rejoue le même
+  SQL contre H2 et un vrai PostgreSQL et signale chaque divergence, dont le piège de casse des
+  identifiants qui a déjà coûté un bug à ce dépôt.
+
+La shortlist de [`docs/selection-criteria.md`](docs/selection-criteria.md) est close : six
+candidats confrontés au paysage existant, six construits.
 
 ## Structure
 
