@@ -1,0 +1,52 @@
+name: CI - db-dialect-portability-tester
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/db-dialect-portability-tester/**'
+  pull_request:
+    paths:
+      - 'tools/db-dialect-portability-tester/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/db-dialect-portability-tester
+
+    # A real PostgreSQL, not H2 in compatibility mode. Comparing an engine against an imitation of
+    # the other engine would test the imitation.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: app
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build and test
+        run: mvn -B clean verify -Dportability.postgres.url=jdbc:postgresql://localhost:5432/app
+
+      - name: Fail if the PostgreSQL half was skipped
+        # Without this, a service container that never came up leaves the comparison tests
+        # skipped and the job green — the exact shape of a build that verifies nothing.
+        run: |
+          skipped=$(grep -ho 'skipped="[0-9]*"' target/surefire-reports/*.xml | grep -o '[0-9]*' | paste -sd+ | bc)
+          echo "skipped tests: ${skipped:-0}"
+          test "${skipped:-0}" -eq 0

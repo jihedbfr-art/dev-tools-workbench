@@ -5,6 +5,7 @@
 [![CI - kafka-outbox-verifier](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-outbox-verifier.yml)
 [![CI - bpmn-saga-linter](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-bpmn-saga-linter.yml)
 [![CI - kafka-idempotent-consumer-scaffolder](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-kafka-idempotent-consumer-scaffolder.yml)
+[![CI - db-dialect-portability-tester](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-db-dialect-portability-tester.yml/badge.svg)](https://github.com/jihedbfr-art/dev-tools-workbench/actions/workflows/ci-db-dialect-portability-tester.yml)
 
 [Version française](./README.fr.md)
 
@@ -28,9 +29,12 @@ here exists because it was screened against the current landscape first; see
   shipped. Generates the `processed_events` migration and repository behind the
   idempotent-consumer pattern, with the dialect and transaction traps written into the code it
   emits.
-- An H2/PostgreSQL dialect portability tester is next — see
-  [`docs/selection-criteria.md`](docs/selection-criteria.md) for the full shortlist and why each
-  one made the cut.
+- [`db-dialect-portability-tester`](tools/db-dialect-portability-tester) — shipped. Replays the
+  same SQL against H2 and a real PostgreSQL and reports every place they disagree, including the
+  identifier-casing trap that already cost this repository a bug.
+
+That closes the shortlist in [`docs/selection-criteria.md`](docs/selection-criteria.md): six
+candidates screened against the existing landscape, six built.
 
 ## Structure
 
