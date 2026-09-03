@@ -1,5 +1,9 @@
 package com.jihedailabs.devtools.sagalinter;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,6 +15,12 @@ import java.util.stream.Stream;
 public class LinterMain {
 
     public static void main(String[] args) {
+        // The report uses status marks, and an engine or a library may answer in the JVM's locale.
+        // On a console whose default charset is not UTF-8 - the Windows default - both arrive as
+        // question marks, which reads as a broken tool rather than a broken input.
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(new FileOutputStream(FileDescriptor.err), true, StandardCharsets.UTF_8));
+
         if (args.length < 1) {
             System.err.println("Usage: java -jar bpmn-saga-linter.jar <file-or-directory> [more...]");
             System.err.println("Directories are scanned recursively for *.bpmn files.");

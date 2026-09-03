@@ -84,10 +84,13 @@ cas d'une table sans colonne d'échec ni de compteur de tentatives). Toute la lo
 tourne en Java, pas en SQL, volontairement — une expression `CASE` brute sur cette même table a
 déjà cassé une fois dans cet écosystème parce que H2 et PostgreSQL ne s'accordent pas sur le
 typage implicite (voir l'historique de `OutboxRepository.markFailed` dans
-`bpmn-provisioning-patterns`). Pas encore testé contre une vraie instance PostgreSQL dans cet
-environnement (aucun daemon Docker disponible au moment de la construction) — le driver JDBC est
-embarqué et la requête est du SQL ANSI standard sans syntaxe spécifique à H2, mais considérez ce
-point comme non vérifié tant que ça n'a pas tourné une fois contre un vrai Postgres.
+`bpmn-provisioning-patterns`).
+
+**Exécuté contre un vrai PostgreSQL 16.15** le 3 septembre 2026, sur une table
+`portability_outbox` peuplée d'une ligne bloquée, d'une non purgée, d'une en boucle de retry et
+d'une en échec : chaque signal a été correctement remonté, et le code de sortie valait `1` sur la
+table malade puis `0` une fois qu'il ne restait que la ligne saine. La réserve que portait cette
+section est levée.
 
 ---
 

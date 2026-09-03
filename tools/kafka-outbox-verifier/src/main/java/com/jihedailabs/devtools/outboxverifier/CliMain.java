@@ -1,5 +1,9 @@
 package com.jihedailabs.devtools.outboxverifier;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,6 +16,12 @@ import java.util.Map;
 public class CliMain {
 
     public static void main(String[] args) {
+        // The report uses status marks, and an engine or a library may answer in the JVM's locale.
+        // On a console whose default charset is not UTF-8 - the Windows default - both arrive as
+        // question marks, which reads as a broken tool rather than a broken input.
+        System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(new FileOutputStream(FileDescriptor.err), true, StandardCharsets.UTF_8));
+
         Map<String, String> options = parseOptions(args);
 
         String jdbcUrl = require(options, "jdbc-url");

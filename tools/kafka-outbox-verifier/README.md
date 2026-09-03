@@ -79,10 +79,12 @@ Tested against an in-memory H2 database shaped exactly like `bpmn-provisioning-p
 neither a failure timestamp nor a retry count column). All comparison logic runs in Java, not
 SQL, on purpose — a raw `CASE` expression in this exact table already broke once in this
 ecosystem because H2 and PostgreSQL disagree on implicit typing (see
-`bpmn-provisioning-patterns`' `OutboxRepository.markFailed` history). Not yet run against a live
-PostgreSQL instance in this environment (no Docker daemon available at build time) — the JDBC
-driver is bundled and the query is plain ANSI SQL with no H2-specific syntax, but treat that as
-unverified until it's actually been run once against Postgres.
+`bpmn-provisioning-patterns`' `OutboxRepository.markFailed` history).
+
+**Run against a live PostgreSQL 16.15** on 3 September 2026, against a `portability_outbox` table
+seeded with a stagnant row, an unpurged one, a retry loop and a dead-lettered one: every signal
+was reported correctly, and the exit code was `1` on the unhealthy table and `0` once only the
+healthy row remained. That closes the caveat this section used to carry.
 
 ---
 
